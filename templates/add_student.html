@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}Add Student - EduFlow{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-user-plus"></i> Add New Student
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Full Name *</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid name.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label">Email Address *</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid email.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">Phone Number *</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{10}" placeholder="1234567890" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid 10-digit phone number.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="course" class="form-label">Course *</label>
+                                <select class="form-select" id="course" name="course" required>
+                                    <option value="">Select Course</option>
+                                    <option value="Computer Science">Computer Science</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Business">Business</option>
+                                    <option value="Medicine">Medicine</option>
+                                    <option value="Arts">Arts</option>
+                                    <option value="Science">Science</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a course.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="semester" class="form-label">Semester *</label>
+                                <select class="form-select" id="semester" name="semester" required>
+                                    <option value="">Select Semester</option>
+                                    <option value="1">Semester 1</option>
+                                    <option value="2">Semester 2</option>
+                                    <option value="3">Semester 3</option>
+                                    <option value="4">Semester 4</option>
+                                    <option value="5">Semester 5</option>
+                                    <option value="6">Semester 6</option>
+                                    <option value="7">Semester 7</option>
+                                    <option value="8">Semester 8</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select a semester.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Enrollment Date</label>
+                                <input type="text" class="form-control" value="{{ moment().format('DD-MM-YYYY') }}" readonly>
+                                <small class="text-muted">Auto-generated</small>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-between">
+                                    <a href="{{ url_for('students') }}" class="btn btn-secondary">
+                                        <i class="fas fa-arrow-left"></i> Back to Students
+                                    </a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Add Student
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Form validation
+(function() {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.prototype.slice.call(forms).forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+})();
+
+// Phone number formatting
+document.getElementById('phone').addEventListener('input', function(e) {
+    let value = e.target.value.replace(/\D/g, '');
+    if (value.length > 10) {
+        value = value.slice(0, 10);
+    }
+    e.target.value = value;
+});
+
+// Email validation
+document.getElementById('email').addEventListener('blur', function() {
+    const email = this.value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (email && !emailRegex.test(email)) {
+        this.classList.add('is-invalid');
+    } else {
+        this.classList.remove('is-invalid');
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Add Course - EduFlow{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-plus-circle"></i> Add New Course
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="needs-validation" novalidate>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">Course Name *</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                                <div class="invalid-feedback">
+                                    Please provide a course name.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="code" class="form-label">Course Code *</label>
+                                <input type="text" class="form-control" id="code" name="code" pattern="[A-Z]{2,4}[0-9]{3,4}" placeholder="CS101" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid course code (e.g., CS101).
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="credits" class="form-label">Credits *</label>
+                                <select class="form-select" id="credits" name="credits" required>
+                                    <option value="">Select Credits</option>
+                                    <option value="1">1 Credit</option>
+                                    <option value="2">2 Credits</option>
+                                    <option value="3">3 Credits</option>
+                                    <option value="4">4 Credits</option>
+                                    <option value="5">5 Credits</option>
+                                    <option value="6">6 Credits</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select credit hours.
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="instructor" class="form-label">Instructor Name *</label>
+                                <input type="text" class="form-control" id="instructor" name="instructor" required>
+                                <div class="invalid-feedback">
+                                    Please provide instructor name.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-between">
+                                    <a href="{{ url_for('courses') }}" class="btn btn-secondary">
+                                        <i class="fas fa-arrow-left"></i> Back to Courses
+                                    </a>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-save"></i> Add Course
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Form validation
+(function() {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.prototype.slice.call(forms).forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+    });
+})();
+
+// Course code formatting
+document.getElementById('code').addEventListener('input', function(e) {
+    let value = e.target.value.toUpperCase();
+    e.target.value = value;
+});
+
+// Auto-format course code to match pattern
+document.getElementById('code').addEventListener('blur', function() {
+    let value = this.value.toUpperCase();
+    // Basic validation for course code format
+    const codeRegex = /^[A-Z]{2,4}[0-9]{3,4}$/;
+    if (value && !codeRegex.test(value)) {
+        this.classList.add('is-invalid');
+    } else {
+        this.classList.remove('is-invalid');
+    }
+});
+</script>
+{% endblock %}

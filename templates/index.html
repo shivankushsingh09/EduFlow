@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Home - EduFlow{% endblock %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container text-center">
+        <h1 class="display-4 mb-4">
+            <i class="fas fa-graduation-cap"></i> Welcome to EduFlow
+        </h1>
+        <p class="lead mb-4">Comprehensive Student Management System for Modern Education</p>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a href="{{ url_for('students') }}" class="btn btn-light btn-lg me-md-2">
+                        <i class="fas fa-users"></i> Manage Students
+                    </a>
+                    <a href="{{ url_for('courses') }}" class="btn btn-outline-light btn-lg me-md-2">
+                        <i class="fas fa-book"></i> View Courses
+                    </a>
+                    <a href="{{ url_for('add_student') }}" class="btn btn-success btn-lg">
+                        <i class="fas fa-plus"></i> Add Student
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">Student Management</h5>
+                    <p class="card-text">Add, edit, and manage student information with ease. Track enrollment and academic progress.</p>
+                    <a href="{{ url_for('students') }}" class="btn btn-primary">View Students</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-book fa-3x text-success mb-3"></i>
+                    <h5 class="card-title">Course Management</h5>
+                    <p class="card-text">Organize courses, manage credits, and assign instructors efficiently.</p>
+                    <a href="{{ url_for('courses') }}" class="btn btn-success">View Courses</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-chart-line fa-3x text-warning mb-3"></i>
+                    <h5 class="card-title">Grade Tracking</h5>
+                    <p class="card-text">Monitor student performance, track grades, and generate academic reports.</p>
+                    <a href="{{ url_for('grades') }}" class="btn btn-warning">View Grades</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">System Features</h2>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="d-flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-check-circle text-success fa-2x"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    <h5>Easy Student Registration</h5>
+                    <p>Quick and simple student enrollment process with all necessary information.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="d-flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-check-circle text-success fa-2x"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    <h5>Course Organization</h5>
+                    <p>Efficiently manage courses with credits, codes, and instructor assignments.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="d-flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-check-circle text-success fa-2x"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    <h5>Grade Management</h5>
+                    <p>Comprehensive grade tracking system for academic performance monitoring.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <div class="d-flex">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-check-circle text-success fa-2x"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    <h5>Modern Interface</h5>
+                    <p>User-friendly design with Bootstrap for responsive and intuitive navigation.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
