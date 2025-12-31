@@ -1,178 +1,127 @@
 # EduFlow - Student Management System
 
-A comprehensive student management system built with Flask, HTML, CSS, JavaScript, and Bootstrap. This system allows educational institutions to manage students, courses, and grades efficiently.
+A basic web-based Student Management System built with Python Flask and Bootstrap.
 
 ## Features
 
-### 🎓 Student Management
-- Add, edit, and delete students
-- Track student enrollment information
-- Search and filter students by course and semester
-- View student statistics and analytics
+- **Dashboard**: Overview of student statistics
+- **Student Management**: Add, edit, delete, and view students
+- **Responsive Design**: Works on desktop and mobile devices
+- **Data Persistence**: Student data stored in JSON format
+- **Modern UI**: Built with Bootstrap 5 and Font Awesome icons
 
-### 📚 Course Management
-- Create and manage courses
-- Assign instructors to courses
-- Track course credits and codes
-- View course statistics
+## Requirements
 
-### 📊 Grade Management
-- Add and manage student grades
-- Track grade distribution
-- View grade statistics and analytics
-- Support for various grade scales (A+ to F)
-
-### 🎨 Modern UI/UX
-- Responsive Bootstrap 5 design
-- Interactive JavaScript features
-- Clean and intuitive interface
-- Mobile-friendly design
-
-## Technology Stack
-
-- **Backend**: Python Flask
-- **Database**: SQLite (with SQLAlchemy ORM)
-- **Frontend**: HTML5, CSS3, JavaScript
-- **UI Framework**: Bootstrap 5
-- **Icons**: Font Awesome
+- Python 3.7 or higher
+- pip package manager
 
 ## Installation
 
-### Prerequisites
-- Python 3.7 or higher
-- pip (Python package manager)
-
-### Setup Instructions
-
-1. **Clone or download the project** to your local machine
-
-2. **Navigate to the project directory**:
+1. Navigate to the project directory:
    ```bash
-   cd "EduFlow - Student Management System"
+   cd "EduFlow – Student Management System"
    ```
 
-3. **Create a virtual environment** (recommended):
-   ```bash
-   python -m venv venv
-   ```
-   
-   **Activate virtual environment**:
-   - Windows: `venv\Scripts\activate`
-   - macOS/Linux: `source venv/bin/activate`
-
-4. **Install dependencies**:
+2. Install the required packages:
    ```bash
    pip install -r requirements.txt
    ```
 
-5. **Run the application**:
+## Running the Application
+
+### Option 1: Direct Python (Development)
+1. Start the Flask application:
    ```bash
    python app.py
    ```
 
-6. **Open your browser** and navigate to:
+2. Open your web browser and go to:
    ```
    http://localhost:5000
    ```
 
+### Option 2: Docker (Production)
+1. Build and run with Docker Compose:
+   ```bash
+   docker-compose up --build
+   ```
+
+2. Or build and run with Docker:
+   ```bash
+   # Build the image
+   docker build -t eduflow .
+   
+   # Run the container
+   docker run -p 5000:5000 -v $(pwd)/data:/app/data eduflow
+   ```
+
+3. Access the application at:
+   ```
+   http://localhost:5000
+   ```
+
+### Docker Notes:
+- Data is persisted in the `./data` directory
+- The application runs as a non-root user for security
+- Health checks are enabled for monitoring
+- The container will automatically restart unless stopped manually
+
 ## Usage
 
-### Getting Started
+### Adding Students
+1. Click "Add New Student" button
+2. Fill in the required information (Name, Email, Phone, Course)
+3. Click "Add Student" to save
 
-1. **Start the application** by running `python app.py`
-2. **Open your browser** and go to `http://localhost:5000`
-3. **Explore the dashboard** to see system features
-4. **Add your first student** using the "Add Student" button
-5. **Create courses** to organize your curriculum
-6. **Add grades** to track student performance
+### Managing Students
+- **View**: Go to Students page to see all students
+- **Edit**: Click the edit icon next to a student
+- **Delete**: Click the delete icon (with confirmation)
 
-### Main Features
+### Dashboard
+- View total students count
+- See active students statistics
+- Quick access to recent students
 
-#### Home Dashboard
-- Overview of system statistics
-- Quick access to all main features
-- Modern, welcoming interface
-
-#### Student Management
-- View all students in a searchable table
-- Add new students with complete information
-- Edit existing student details
-- Delete students (with confirmation)
-- Filter by course and semester
-
-#### Course Management
-- View all courses in a card layout
-- Add new courses with instructor assignment
-- Track course credits and codes
-- View course statistics
-
-#### Grade Management
-- Add grades for students in specific courses
-- View grade distribution and statistics
-- Color-coded grade badges
-- Comprehensive grade analytics
-
-## Project Structure
+## File Structure
 
 ```
-EduFlow - Student Management System/
+EduFlow – Student Management System/
 ├── app.py                 # Main Flask application
 ├── requirements.txt       # Python dependencies
-├── README.md             # Project documentation
-└── templates/            # HTML templates
-    ├── base.html         # Base template with navigation
-    ├── index.html        # Home dashboard
-    ├── students.html     # Student management page
-    ├── add_student.html  # Add student form
-    ├── edit_student.html # Edit student form
-    ├── courses.html      # Course management page
-    ├── add_course.html   # Add course form
-    ├── grades.html       # Grade management page
-    └── add_grade.html    # Add grade form
+├── README.md              # This file
+├── students.json          # Student data storage (created automatically)
+├── templates/             # HTML templates
+│   ├── base.html         # Base template with navigation
+│   ├── index.html        # Dashboard page
+│   ├── students.html     # Students list page
+│   ├── add_student.html  # Add student form
+│   └── edit_student.html # Edit student form
+└── static/               # Static files (CSS, JS, images)
 ```
 
-## Database Schema
+## Data Storage
 
-The system uses SQLite with the following tables:
+Student data is stored in `students.json` file in the project root. The file is created automatically when you add your first student.
 
-- **Students**: Student information (name, email, phone, course, semester)
-- **Courses**: Course details (name, code, credits, instructor)
-- **Grades**: Grade records (student_id, course_id, grade, semester)
+## Technologies Used
 
-## API Endpoints
+- **Backend**: Python Flask
+- **Frontend**: HTML5, CSS3, JavaScript
+- **UI Framework**: Bootstrap 5
+- **Icons**: Font Awesome
+- **Data Storage**: JSON files
 
-The application provides the following main routes:
-
-- `/` - Home dashboard
-- `/students` - Student management
-- `/students/add` - Add new student
-- `/students/edit/<id>` - Edit student
-- `/students/delete/<id>` - Delete student
-- `/courses` - Course management
-- `/courses/add` - Add new course
-- `/grades` - Grade management
-- `/grades/add` - Add new grade
-- `/api/students` - JSON API for students
-
-## Contributing
-
-This project is part of the Oracle Internship Program. Feel free to enhance the system with additional features such as:
+## Future Enhancements
 
 - User authentication and authorization
-- Advanced reporting and analytics
-- Email notifications
-- File upload capabilities
-- Export functionality (PDF, Excel)
-- REST API expansion
-
-## License
-
-This project is open source and available under the MIT License.
+- Database integration (SQLite/PostgreSQL)
+- Course management
+- Grade tracking
+- Attendance system
+- Report generation
+- Export functionality (PDF/Excel)
 
 ## Support
 
-For any questions or issues with the EduFlow Student Management System, please refer to the project documentation or contact the development team.
-
----
-
-**EduFlow** - Modern Student Management for Educational Excellence 🎓
+For any issues or questions, please check the console output when running the application.

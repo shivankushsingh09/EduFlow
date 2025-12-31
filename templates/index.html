@@ -1,114 +1,101 @@
 {% extends "base.html" %}
 
-{% block title %}Home - EduFlow{% endblock %}
+{% block title %}Dashboard - EduFlow{% endblock %}
 
 {% block content %}
-<div class="hero-section">
-    <div class="container text-center">
-        <h1 class="display-4 mb-4">
-            <i class="fas fa-graduation-cap"></i> Welcome to EduFlow
-        </h1>
-        <p class="lead mb-4">Comprehensive Student Management System for Modern Education</p>
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                    <a href="{{ url_for('students') }}" class="btn btn-light btn-lg me-md-2">
-                        <i class="fas fa-users"></i> Manage Students
-                    </a>
-                    <a href="{{ url_for('courses') }}" class="btn btn-outline-light btn-lg me-md-2">
-                        <i class="fas fa-book"></i> View Courses
-                    </a>
-                    <a href="{{ url_for('add_student') }}" class="btn btn-success btn-lg">
-                        <i class="fas fa-plus"></i> Add Student
-                    </a>
-                </div>
-            </div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
+    <div>
+        <a href="{{ url_for('add_student') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Add New Student
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card stats-card">
+            <i class="fas fa-users"></i>
+            <h3>{{ total_students }}</h3>
+            <p class="text-muted">Total Students</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stats-card">
+            <i class="fas fa-user-check"></i>
+            <h3>{{ active_students }}</h3>
+            <p class="text-muted">Active Students</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card stats-card">
+            <i class="fas fa-chart-line"></i>
+            <h3>{{ ((active_students / total_students) * 100)|round(1) if total_students > 0 else 0 }}%</h3>
+            <p class="text-muted">Active Rate</p>
         </div>
     </div>
 </div>
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <i class="fas fa-users fa-3x text-primary mb-3"></i>
-                    <h5 class="card-title">Student Management</h5>
-                    <p class="card-text">Add, edit, and manage student information with ease. Track enrollment and academic progress.</p>
-                    <a href="{{ url_for('students') }}" class="btn btn-primary">View Students</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <i class="fas fa-book fa-3x text-success mb-3"></i>
-                    <h5 class="card-title">Course Management</h5>
-                    <p class="card-text">Organize courses, manage credits, and assign instructors efficiently.</p>
-                    <a href="{{ url_for('courses') }}" class="btn btn-success">View Courses</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center">
-                    <i class="fas fa-chart-line fa-3x text-warning mb-3"></i>
-                    <h5 class="card-title">Grade Tracking</h5>
-                    <p class="card-text">Monitor student performance, track grades, and generate academic reports.</p>
-                    <a href="{{ url_for('grades') }}" class="btn btn-warning">View Grades</a>
-                </div>
-            </div>
-        </div>
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-list"></i> Recent Students
     </div>
-
-    <div class="row mt-5">
-        <div class="col-12">
-            <h2 class="text-center mb-4">System Features</h2>
-        </div>
-        <div class="col-md-6 mb-3">
-            <div class="d-flex">
-                <div class="flex-shrink-0">
-                    <i class="fas fa-check-circle text-success fa-2x"></i>
-                </div>
-                <div class="flex-grow-1 ms-3">
-                    <h5>Easy Student Registration</h5>
-                    <p>Quick and simple student enrollment process with all necessary information.</p>
-                </div>
+    <div class="card-body">
+        {% if students %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Course</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students[:5] %}
+                        <tr>
+                            <td>{{ student.id }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.email }}</td>
+                            <td>{{ student.course }}</td>
+                            <td>
+                                <span class="badge {% if student.status == 'active' %}bg-success{% else %}bg-secondary{% endif %}">
+                                    {{ student.status }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{{ url_for('edit_student', student_id=student.id) }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{{ url_for('delete_student', student_id=student.id) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure you want to delete this student?')">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-        </div>
-        <div class="col-md-6 mb-3">
-            <div class="d-flex">
-                <div class="flex-shrink-0">
-                    <i class="fas fa-check-circle text-success fa-2x"></i>
-                </div>
-                <div class="flex-grow-1 ms-3">
-                    <h5>Course Organization</h5>
-                    <p>Efficiently manage courses with credits, codes, and instructor assignments.</p>
-                </div>
+            {% if students|length > 5 %}
+            <div class="text-center mt-3">
+                <a href="{{ url_for('students') }}" class="btn btn-outline-primary">
+                    View All Students <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
-        </div>
-        <div class="col-md-6 mb-3">
-            <div class="d-flex">
-                <div class="flex-shrink-0">
-                    <i class="fas fa-check-circle text-success fa-2x"></i>
-                </div>
-                <div class="flex-grow-1 ms-3">
-                    <h5>Grade Management</h5>
-                    <p>Comprehensive grade tracking system for academic performance monitoring.</p>
-                </div>
+            {% endif %}
+        {% else %}
+            <div class="text-center py-5">
+                <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                <h4 class="text-muted">No Students Found</h4>
+                <p class="text-muted">Start by adding your first student to the system.</p>
+                <a href="{{ url_for('add_student') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add First Student
+                </a>
             </div>
-        </div>
-        <div class="col-md-6 mb-3">
-            <div class="d-flex">
-                <div class="flex-shrink-0">
-                    <i class="fas fa-check-circle text-success fa-2x"></i>
-                </div>
-                <div class="flex-grow-1 ms-3">
-                    <h5>Modern Interface</h5>
-                    <p>User-friendly design with Bootstrap for responsive and intuitive navigation.</p>
-                </div>
-            </div>
-        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

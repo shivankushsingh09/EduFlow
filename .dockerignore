@@ -24,7 +24,7 @@ wheels/
 .installed.cfg
 *.egg
 
-# Virtual environments
+# Virtual Environment
 venv/
 env/
 ENV/
@@ -42,13 +42,10 @@ Thumbs.db
 # Logs
 *.log
 
-# Database (will be created in container)
-*.db
-*.sqlite
-
-# Documentation
-README.md
-
 # Docker
 Dockerfile
 .dockerignore
+docker-compose.yml
+
+# Data files (will be created in container)
+students.json
